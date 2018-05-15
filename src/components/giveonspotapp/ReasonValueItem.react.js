@@ -3,14 +3,16 @@ import * as bs from 'react-bootstrap';
 
 class ReasonValueItem extends Component {
 
+  _handleChange(event){
+    let reasonMsg = event.target.value;
+    this.props.onEditReasonGive(this.props.data, reasonMsg)
+  }
   render(){
     
     return (
       <div className="#">
-        
             <bs.ControlLabel>{this.props.data.name}</bs.ControlLabel>
-            <bs.FormControl type="text" placeholder="เหตุผล" />
-          
+            <bs.FormControl name="reason" type="text" placeholder="เหตุผล" onChange={this._handleChange.bind(this)} />
       </div>
     )
   }

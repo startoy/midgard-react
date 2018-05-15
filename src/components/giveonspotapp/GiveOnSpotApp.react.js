@@ -20,12 +20,12 @@ class GiveOnSpotApp extends Component {
       ]
     }
 
-    this.pushCoreValueGive    = this.pushCoreValueGive.bind(this);
-    this.editCoreValueGive    = this.editCoreValueGive.bind(this);
-    this.removeCoreValueGive  = this.removeCoreValueGive.bind(this);
+    this._pushCoreValueGive    = this._pushCoreValueGive.bind(this);
+    this._editCoreValueGive    = this._editCoreValueGive.bind(this);
+    this._removeCoreValueGive  = this._removeCoreValueGive.bind(this);
   }
 
-    pushCoreValueGive (CoreValueGiveObj){
+    _pushCoreValueGive (CoreValueGiveObj){
       let temp  = this.state.reasonGive
       temp.push(CoreValueGiveObj)
 
@@ -34,11 +34,14 @@ class GiveOnSpotApp extends Component {
       })
     }
 
-    editCoreValueGive (CoreValueGiveObj){
-     // let arrIndex = this.state.reasonGive.indexOf(CoreValueGiveObj)
+    _editCoreValueGive (CoreValueGiveObj, reasonMsg){
+     let index = this.state.reasonGive.findIndex(d => d.value === CoreValueGiveObj.value)
+     let temp  = this.state.reasonGive
+     temp[index].reason = reasonMsg
+     this.setState({ reasonGive : temp }, ()=>{ console.log("is : " + JSON.stringify(this.state.reasonGive))})
     }
 
-    removeCoreValueGive (CoreValueGiveObj){
+    _removeCoreValueGive (CoreValueGiveObj){
         //let index = this.state.reasonGive.indexOf(CoreValueGiveObj)
         let index = this.state.reasonGive.findIndex(d => d.value === CoreValueGiveObj.value)
         let temp  = this.state.reasonGive
@@ -55,8 +58,8 @@ class GiveOnSpotApp extends Component {
           'Content-Type' : 'application/json',
         },
         body : JSON.stringify({
-          To : '',
-          From : '',
+          to : '',
+          from : '',
           reason : this.state.reasonGive
         }),
       })
@@ -77,7 +80,7 @@ class GiveOnSpotApp extends Component {
                 <bs.PageHeader>Blockchain Onspot</bs.PageHeader>
         </bs.Col></bs.Row>
 
-        <bs.Row><bs.Col xs={4} md={6}>
+        <bs.Row><bs.Col xs={12} md={12}>
                 <SearchEmpApp />
         </bs.Col></bs.Row>
         {/* <div>text : {alert(JSON.stringify(this.state.valueListDisplay[0]))}</div> */}
@@ -86,9 +89,9 @@ class GiveOnSpotApp extends Component {
                 <ValueCoreApp 
                     reasonGive          = {this.state.reasonGive}
                     valueListDisplay    = { this.state.valueListDisplay }
-                    onPushReasonGive    = { this.pushCoreValueGive }
-                    onEditReasonGive    = { this.editCoreValueGive }
-                    onRemoveReasonGive  = { this.removeCoreValueGive }
+                    onPushReasonGive    = { this._pushCoreValueGive }
+                    onEditReasonGive    = { this._editCoreValueGive }
+                    onRemoveReasonGive  = { this._removeCoreValueGive }
                 />
           </bs.Col></bs.Row>
       </bs.Grid>
