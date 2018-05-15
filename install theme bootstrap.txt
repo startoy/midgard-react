@@ -1,0 +1,13 @@
+The solution that worked for me is creating a folder structure like this in the root of the project:
+
+vendor/
+  css/
+    bootstrap.min.css
+  fonts/
+    (all the font files)
+And inside the entry point of webpack (currently /app/app.js), add the following:
+
+import '!!style-loader!css-loader!../vendor/css/bootstrap.min.css';
+What this does is strip out the configured loaders for this specific css file, and then use only the style-loader and css-loader. This is necessary because the configured css-loader had modules turned on, which caused bootstrap's styles to be namespaced and thus not show up properly.
+
+Hope this helps - took me a while to figure out!
