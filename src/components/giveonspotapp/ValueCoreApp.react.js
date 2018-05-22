@@ -1,66 +1,104 @@
 import React, { Component } from 'react';
-import BTNToggleReason from './BTNToggleReason.react';
-import ReasonValueApp from './ReasonValueApp.react';
+import BTNCoreValueApp from './BTNCoreValueApp.react';
+import ReasonCoreValueApp from './ReasonCoreValueApp.react';
+import '../css/CoreValueApp.react.css';
 
 import * as bs from 'react-bootstrap';
 
 class ValueCoreApp extends Component {
+  constructor(props){
+    super(props);
+    this.state = { counter : 0 }
+
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._onBTNCoreValueClick = this._onBTNCoreValueClick.bind(this);
+    this._getValidationState = this._getValidationState.bind(this);
+  }
+
+  _handleSubmit(event) {
+    if (this._getValidationState()) {
+      event.preventDefault();
+      this.props.btnGiveOnspot();
+    }else{
+      alert('กรุณาเลือกอย่างน้อย 1');
+      event.preventDefault();
+    }
+  }
+
+  _onBTNCoreValueClick(count){
+    this.setState({
+      counter : this.state.counter + count
+    })
+  }
+
+  _getValidationState(){
+    let res = false;
+    this.state.counter >= 1 ? res=true : res=false;
+    /* alert(res); */
+    return res;
+  }
 
   render(){
-
-    let i = 0;
     /* btn Map */
     let btnMapGroup = this.props.valueListDisplay.map((dataObj,index) => {
-      i++;
-      if(i===4) i = 0;
-      var newLine = (i === 3) ? <br /> : null ;
       return (
         <div key = { index }>
-          <BTNToggleReason 
+          <BTNCoreValueApp 
             data  = { dataObj } 
             onPushReasonGive    = {this.props.onPushReasonGive}
             onRemoveReasonGive  = {this.props.onRemoveReasonGive}
+            onBTNCoreValueClick = {this._onBTNCoreValueClick}
           />
-          {newLine}
         </div>
       );
     });
 
-    /* reasonItem map */
-/*     let reasonMapGroup = this.props.reasonGive.map((dataObj, index) => {
-      
-      return();
-    }); */
-
   return (
-    <bs.Form >
+    <bs.Form onSubmit={this._handleSubmit}>
     <bs.FormGroup>
-    <br/>
-    <bs.Row >
-      <bs.Col xs={5} md={5}>
-        <bs.ControlLabel>FWG Core Values</bs.ControlLabel>
+    
+    <div style={{float:'left', minWidth:'40%', display:'block'}}>
+    <bs.Row>
+      <bs.Col xs={12} md={12}>
+        <bs.ControlLabel><bs.Image src="/assets/core_value.png" /> FWG Core Values</bs.ControlLabel>
         <bs.Panel>
           <bs.Panel.Body>
             <bs.ButtonToolbar>{btnMapGroup}</bs.ButtonToolbar>
             </bs.Panel.Body>
         </bs.Panel>
       </bs.Col>
+    </bs.Row>
 
-      <bs.Col xs={7} md={7}>
-        <bs.FormGroup controlId="formControlsTextarea">
-        <bs.ControlLabel>โปรดเลือกหัวข้อค่านิยม</bs.ControlLabel>
-        {/* <bs.FormControl bsSize='sm' maxLength='200' componentClass="textarea" placeholder="โปรดเลือกค่านิยม" /> */}
+      <div>
+        <bs.Row><bs.Col xs={12} md={12}>
+            <bs.Button
+            type  = "submit"
+            bsStyle="primary"
+            style={{minWidth:'60px'}}>
+            ส่ง
+          </bs.Button>
+        </bs.Col></bs.Row> 
+      </div>
+    </div>
+
+    <div style={{float:'right', minWidth:'55%', display :'block'}}>
+    <bs.Row>
+      <bs.Col xs={12} md={12}>
+        
+        <bs.ControlLabel><bs.Image src="/assets/core_value.png" /> โปรดเลือกหัวข้อค่านิยม</bs.ControlLabel>
         <bs.Panel>
-          <bs.Panel.Body> <ReasonValueApp 
-                              reasonGive          = {this.props.reasonGive}
+          <bs.Panel.Body><ReasonCoreValueApp 
+                              reasonGive          = { this.props.reasonGive}
                               onEditReasonGive    = { this.props.onEditReasonGive }
                               onRemoveReasonGive  = { this.props.onRemoveReasonGive } 
                           /> 
           </bs.Panel.Body>
         </bs.Panel>
-      </bs.FormGroup>
+      
       </bs.Col>
     </bs.Row>
+    </div>
+
     </bs.FormGroup>
     </bs.Form>
     )
@@ -71,6 +109,44 @@ class ValueCoreApp extends Component {
 ValueCoreApp.propTypes = {
   valueListDisplay : React.PropTypes.array.isRequired,
   reasonGive : React.PropTypes.array,
+} */
+
+/* class LoadingButton extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this._handleClick = this._handleClick.bind(this);
+
+    this.state = {
+      isLoading: false
+    };
+  }
+
+  _handleClick() {
+    this.setState({ isLoading: true }, ()=> {
+      // This probably where you would have an `ajax` call
+      setTimeout(() => {
+        // Completed of async action, set loading state back
+        this.setState({ isLoading: false });
+      }, 2000)
+       // this.props.btnGiveOnspot.then() 
+    })
+  }
+
+  render() {
+    const { isLoading } = this.state;
+    return (
+      <bs.Button
+        type  = "submit"
+        bsStyle="primary"
+        disabled={isLoading}
+        onClick={!isLoading ? this._handleClick : null}
+        style={{minWidth:'60px'}}
+      >
+        {isLoading ? 'กำลังดำเนินการ...' : 'ส่ง'}
+      </bs.Button>
+    );
+  }
 } */
 
 export default ValueCoreApp
