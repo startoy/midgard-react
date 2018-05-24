@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import ReasonValueItem from './ReasonValueItem.react';
+import ReasonCoreValueItem from './ReasonCoreValueItem.react';
 
-class ReasonValueApp extends Component {
+class ReasonCoreValueApp extends Component {
 
   render(){
     let fieldMapGroup = this.props.reasonGive.map((dataObj, index) => {
       return (
         <div key = { index }>
-          <ReasonValueItem 
+          <ReasonCoreValueItem 
             data = {dataObj}
             onEditReasonGive    = { this.props.onEditReasonGive }
             onRemoveReasonGive  = { this.props.onRemoveReasonGive }
@@ -15,10 +15,11 @@ class ReasonValueApp extends Component {
         </div>
       )
     })
+
     return (
-      <div>{fieldMapGroup}</div>
+      <div >{fieldMapGroup}</div>
     )
   }
 }
 
-export default ReasonValueApp
+export default ReasonCoreValueApp

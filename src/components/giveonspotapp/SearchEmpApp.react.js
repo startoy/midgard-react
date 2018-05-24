@@ -7,12 +7,13 @@ class SearchEmpApp extends Component {
     return (
       <bs.Form inline>
         <bs.FormGroup bsSize="sm">
-          <bs.ControlLabel>Giving to...</bs.ControlLabel>{' '}
+          <bs.ControlLabel>Giving to... </bs.ControlLabel>{' '}
           <bs.FormControl
             name="search"
             type="text"
-            placeholder="กรอกชื่อ, รหัสพนักงาน ที่ต้องการค้นหา"
-            /* onChange="" */
+            placeholder="กรอก ชื่อ หรือ รหัสพนักงาน"
+            maxLength="24"
+            autoFocus
           />
         </bs.FormGroup>
       </bs.Form>

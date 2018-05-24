@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import GiveOnSpotApp from './components/giveonspotapp/GiveOnSpotApp.react';
+import HomeApp from './components/HomeApp.react';
 import registerServiceWorker from './registerServiceWorker';
 
 
-ReactDOM.render(<GiveOnSpotApp />, document.getElementById('root'));
+ReactDOM.render(<HomeApp />, document.getElementById('root'));
 registerServiceWorker();
