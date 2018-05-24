@@ -63,7 +63,10 @@ class GiveOnSpotApp extends Component {
 
     /* async function blockchainUpdate(){ try{}catch{} } */
     _giveOnspot(){
-     alert('giving with 1 latest reason.. Val:' + this.state.reasonGive[0].value + " Reason:" + this.state.reasonGive[0].reason);
+     alert('giving with 1 latest reason..[ Val:' + this.state.reasonGive[0].value + " Reason:" + this.state.reasonGive[0].reason + " ]");
+     this.setState({
+      isLoading : !this.state.isLoading
+     })
       fetch(config.url+'/sol/emp/give', {
         method : 'POST',
         headers : {
@@ -83,17 +86,22 @@ class GiveOnSpotApp extends Component {
           console.log("response -> "+ JSON.stringify(resJson));
           this.setState({
             log : { status : resJson.status, message : resJson.message },
-            reasonGive : []
+            reasonGive : [],
+            isLoading : !this.state.isLoading
           })
         })
         .catch((err) => {
           console.error(err);
+          this.setState({
+            log : { status : 0 , message : "ส่งไม่สำเร็จ. error catch : please contact administrator" },
+            isLoading : !this.state.isLoading,
+            reasonGive : []
+          })
         });
     }
     
   render() {
-    let alertMsg;
-    let alertStyle;
+    let alertMsg, alertStyle;
     this.state.log.status === "1" ? alertStyle = "success" : alertStyle = "danger";
     this.state.log.message === "" ? alertMsg = "" : alertMsg = <div><bs.Alert bsStyle={alertStyle}>{this.state.log.message}</bs.Alert></div>;
     return (

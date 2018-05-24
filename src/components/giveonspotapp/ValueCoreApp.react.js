@@ -45,6 +45,7 @@ class ValueCoreApp extends Component {
         <div key = { index }>
           <BTNCoreValueApp 
             data  = { dataObj } 
+            isLoading = {this.props.isLoading}
             onPushReasonGive    = {this.props.onPushReasonGive}
             onRemoveReasonGive  = {this.props.onRemoveReasonGive}
             onBTNCoreValueClick = {this._onBTNCoreValueClick}
@@ -74,9 +75,11 @@ class ValueCoreApp extends Component {
             <bs.Button
             type  = "submit"
             bsStyle="primary"
+            disabled={this.props.isLoading}
             style={{minWidth:'60px'}}>
-            ส่ง
+            {this.props.isLoading ? 'กำลังดำเนินการ...' : 'ส่ง'}
           </bs.Button>
+          <br/><bs.Badge>{this.props.isLoading ? 'กรุณาอย่าปิดหน้านี้' : null}</bs.Badge>
         </bs.Col></bs.Row> 
       </div>
     </div>
