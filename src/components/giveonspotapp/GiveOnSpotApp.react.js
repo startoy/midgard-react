@@ -21,14 +21,16 @@ class GiveOnSpotApp extends Component {
         { value : 5, name : "สร้างสรรค์สิ่งใหม่", img : "/assets/105.png" },
         { value : 6, name : "มีคุณธรรมและความซื่อสัตย์", img : "/assets/106.png" }
       ],
+      selected : null ,
       log : { status : 0, message : '' }
     }
 
+    this.baseState = this.state;
     this._pushCoreValueGive    = this._pushCoreValueGive.bind(this);
     this._editCoreValueGive    = this._editCoreValueGive.bind(this);
     this._removeCoreValueGive  = this._removeCoreValueGive.bind(this);
     this._giveOnspot           = this._giveOnspot.bind(this);
-    this._checkFormStateData   = this._checkFormStateData.bind(this);
+    this._changeSearch         = this._changeSearch.bind(this);
   }
 
     _pushCoreValueGive (CoreValueGiveObj){
@@ -55,13 +57,11 @@ class GiveOnSpotApp extends Component {
         this.setState({ reasonGive : temp })
     }
 
-    _checkFormStateData(){
-      if(this.state.reasonGive !== null && this.state.reasonGive !== "")
-        return true;
-      return false;
+    _changeSearch(obj){
+      console.log(obj);
+      this.setState({ selected : obj })
     }
-
-    /* async function blockchainUpdate(){ try{}catch{} } */
+    
     _giveOnspot(){
      alert('giving with 1 latest reason..[ Val:' + this.state.reasonGive[0].value + " Reason:" + this.state.reasonGive[0].reason + " ]");
      this.setState({
@@ -88,24 +88,26 @@ class GiveOnSpotApp extends Component {
             log : { status : resJson.status, message : resJson.message },
             reasonGive : [],
             isLoading : !this.state.isLoading
-          })
+          });
         })
         .catch((err) => {
           console.error(err);
           this.setState({
-            log : { status : 0 , message : "ส่งไม่สำเร็จ. error catch : please contact administrator" },
+            log : { status : 0 , message : "ส่งไม่สำเร็จ. error : please contact administrator" },
             isLoading : !this.state.isLoading,
             reasonGive : []
           })
+          
         });
     }
-    
+
   render() {
     let alertMsg, alertStyle;
     this.state.log.status === "1" ? alertStyle = "success" : alertStyle = "danger";
-    this.state.log.message === "" ? alertMsg = "" : alertMsg = <div><bs.Alert bsStyle={alertStyle}>{this.state.log.message}</bs.Alert></div>;
+    this.state.log.message === null || this.state.log.message === "" ? alertMsg = "" : alertMsg = <div><bs.Alert bsStyle={alertStyle}>{this.state.log.message}</bs.Alert></div>;
     return (
       <bs.Grid>
+        
         <bs.Row><bs.Col xs={12} md={12}>
                 <bs.PageHeader>Blockchain Onspot</bs.PageHeader>
         </bs.Col></bs.Row>
@@ -115,7 +117,9 @@ class GiveOnSpotApp extends Component {
         </bs.Col></bs.Row>
 
         <bs.Row><bs.Col xs={12} md={12}>
-                <SearchEmpApp />
+                <SearchEmpApp
+                  selected       = {this.state.selected}
+                  onChangeSearch = {this._changeSearch} />
         </bs.Col></bs.Row>
         
         <ValueCoreApp 
@@ -127,7 +131,7 @@ class GiveOnSpotApp extends Component {
             btnGiveOnspot       = { this._giveOnspot  }
             isLoading           = { this.state.isLoading  }
         />
-        
+
       </bs.Grid>
     )
   }

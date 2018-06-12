@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
 import * as bs from 'react-bootstrap';
+import Select from 'react-select';
 
 class SearchEmpApp extends Component {
 
+  _handleChange = (selected) => {
+    this.props.onChangeSearch(selected)
+  }
+
   render(){
+    const options = [
+      {label : 'Wakanda', value : 'wkd'},
+      {label : 'Thailand', value : 'th'},
+      {label : 'FWG', value : 'fwg'},
+    ]
+    const selected = this.props.selected;
     return (
-      <bs.Form inline>
-        <bs.FormGroup bsSize="sm">
+      
+        <bs.Row><bs.Col xs={5} md={5}>
           <bs.ControlLabel>Giving to... </bs.ControlLabel>{' '}
-          <bs.FormControl
+          <Select
             name="search"
-            type="text"
-            placeholder="กรอก ชื่อ หรือ รหัสพนักงาน"
-            maxLength="24"
+            onChange={this._handleChange}
+            value={selected}
             autoFocus
+            options={options}
           />
-        </bs.FormGroup>
-      </bs.Form>
+          </bs.Col></bs.Row>
+      
     )
   }
 }

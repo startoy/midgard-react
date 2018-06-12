@@ -17,7 +17,7 @@ class ValueCoreApp extends Component {
 
   _handleSubmit(event) {
     if (this._getValidationState()) {
-      event.preventDefault();
+      // event.preventDefault();
       this.props.btnGiveOnspot();
     }else{
       alert('กรุณาเลือกอย่างน้อย 1');
@@ -57,7 +57,6 @@ class ValueCoreApp extends Component {
   return (
     <bs.Form onSubmit={this._handleSubmit}>
     <bs.FormGroup>
-    
     <div style={{float:'left', minWidth:'40%', display:'block'}}>
     <bs.Row>
       <bs.Col xs={12} md={12}>
@@ -80,6 +79,7 @@ class ValueCoreApp extends Component {
             {this.props.isLoading ? 'กำลังดำเนินการ...' : 'ส่ง'}
           </bs.Button>
           <br/><bs.Badge>{this.props.isLoading ? 'กรุณาอย่าปิดหน้านี้' : null}</bs.Badge>
+          <br/><bs.Button href="/" style={{minWidth:'60px'}}>Back</bs.Button><br/><br/>
         </bs.Col></bs.Row> 
       </div>
     </div>
