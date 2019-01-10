@@ -1,5 +1,5 @@
 var config = {
-  url : "http://52.77.222.174",
+  url : "http://54.169.4.58",
 }
 
 export default config;

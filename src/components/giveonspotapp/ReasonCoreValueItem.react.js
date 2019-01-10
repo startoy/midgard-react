@@ -8,7 +8,9 @@ class ReasonCoreValueItem extends Component {
 
   }
 
-  _handleChange(event){
+  _handleInputChange(event){
+    if(this.props.isLoading)
+      return
     let reasonMsg = event.target.value;
     this.props.onEditReasonGive(this.props.data, reasonMsg)
   }
@@ -21,11 +23,12 @@ class ReasonCoreValueItem extends Component {
   }
 
   render(){
+    let InputText = this.props.isLoading ? <bs.FormControl type="text" placeholder="เหตุผล" onChange={this._handleInputChange.bind(this)} maxLength="200" minLength={this.state.validStrLen} /* pattern="\d+" */ disabled /> : <bs.FormControl type="text" placeholder="เหตุผล" onChange={this._handleInputChange.bind(this)} maxLength="200" minLength={this.state.validStrLen} /* pattern="\d+" */ />
     return (
       <div className="#">
       <bs.FormGroup controlId="formText" validationState={this.getValidationState()}> 
             <bs.ControlLabel><small>{this.props.data.name}</small></bs.ControlLabel>
-            <bs.FormControl type="text" placeholder="เหตุผล" onChange={this._handleChange.bind(this)} maxLength="200" minLength={this.state.validStrLen} /* pattern="\d+" */ autoFocus required/>
+            {InputText}
             <bs.FormControl.Feedback />
       </bs.FormGroup>
       </div>

@@ -9,6 +9,7 @@ class ReasonCoreValueApp extends Component {
         <div key = { index }>
           <ReasonCoreValueItem 
             data = {dataObj}
+            isLoading           = { this.props.isLoading}
             onEditReasonGive    = { this.props.onEditReasonGive }
             onRemoveReasonGive  = { this.props.onRemoveReasonGive }
             />

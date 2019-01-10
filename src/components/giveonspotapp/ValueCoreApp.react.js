@@ -14,13 +14,13 @@ class ValueCoreApp extends Component {
     this._onBTNCoreValueClick = this._onBTNCoreValueClick.bind(this);
     this._getValidationState = this._getValidationState.bind(this);
   }
-
+  /* handle submit form */
   _handleSubmit(event) {
     if (this._getValidationState()) {
-      // event.preventDefault();
+      event.preventDefault();
       this.props.btnGiveOnspot();
     }else{
-      alert('กรุณาเลือกอย่างน้อย 1');
+      alert('กรุณาเลือกอย่างน้อย 1 หัวข้อ');
       event.preventDefault();
     }
   }
@@ -78,8 +78,12 @@ class ValueCoreApp extends Component {
             style={{minWidth:'60px'}}>
             {this.props.isLoading ? 'กำลังดำเนินการ...' : 'ส่ง'}
           </bs.Button>
-          <br/><bs.Badge>{this.props.isLoading ? 'กรุณาอย่าปิดหน้านี้' : null}</bs.Badge>
-          <br/><bs.Button href="/" style={{minWidth:'60px'}}>Back</bs.Button><br/><br/>
+          <br/>
+          <bs.Badge>{this.props.isLoading ? 'กรุณาอย่าปิดหน้านี้' : null}</bs.Badge>
+          <br/>
+          <bs.Button style={{minWidth:'60px'}} onClick={this.props.setDisplayForm} disabled={this.props.isLoading}>Back</bs.Button>
+          <br/>
+          <br/>
         </bs.Col></bs.Row> 
       </div>
     </div>
@@ -91,9 +95,10 @@ class ValueCoreApp extends Component {
         <bs.ControlLabel><bs.Image src="/assets/core_value.png" /> โปรดเลือกหัวข้อค่านิยม</bs.ControlLabel>
         <bs.Panel>
           <bs.Panel.Body><ReasonCoreValueApp 
-                              reasonGive          = { this.props.reasonGive}
-                              onEditReasonGive    = { this.props.onEditReasonGive }
-                              onRemoveReasonGive  = { this.props.onRemoveReasonGive } 
+                            isLoading           = { this.props.isLoading}
+                            reasonGive          = { this.props.reasonGive}
+                            onEditReasonGive    = { this.props.onEditReasonGive }
+                            onRemoveReasonGive  = { this.props.onRemoveReasonGive } 
                           /> 
           </bs.Panel.Body>
         </bs.Panel>

@@ -33,7 +33,7 @@ class BTNCoreValueApp extends Component {
           placement="bottom"
           overlay={popoverHoverFocus}
         >
-          <bs.Button className="customBTN" bsStyle={btnToggle} onClick={this._handleClickBTN}>
+          <bs.Button className="customBTN" bsStyle={btnToggle} onClick={this._handleClickBTN} disabled={this.props.isLoading}>
             <bs.Image src={this.props.data.img} responsive style={{width:''}} />
           </bs.Button>
         </bs.OverlayTrigger>

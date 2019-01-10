@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as bs from 'react-bootstrap';
 import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 class SearchEmpApp extends Component {
 
@@ -16,7 +17,6 @@ class SearchEmpApp extends Component {
     ]
     const selected = this.props.selected;
     return (
-      
         <bs.Row><bs.Col xs={5} md={5}>
           <bs.ControlLabel>Giving to... </bs.ControlLabel>{' '}
           <Select
@@ -25,8 +25,9 @@ class SearchEmpApp extends Component {
             value={selected}
             autoFocus
             options={options}
+            disabled={this.props.isLoading ? true : false}
           />
-          </bs.Col></bs.Row>
+        </bs.Col></bs.Row>
       
     )
   }
